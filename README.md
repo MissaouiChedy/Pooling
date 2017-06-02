@@ -9,7 +9,7 @@ This application measures the time it takes for the following operations:
 The expensive computation is defined under the `Pooling.Core.calc/1` function.
 
 
-## Running the sample
+# Running the sample
 
 Given that you have a elixir development environment installed:
 
