@@ -11,12 +11,13 @@ The expensive computation is defined under the `Pooling.Core.calc/1` function.
 
 ## Running the sample
 
-Given that you have a elixir development environment:
+Given that you have a elixir development environment installed:
+
 - run `mix deps.get` to set up the project dependencies
 - run `iex -S mix` to open an elixir shell session loaded with the Pooling application
 - run `Pooling.main` in the iex session to run the sample
 
-Here is a sample output:
+Here is a possible output:
 ```
 iex(1)> Pooling.main
 4 processes on single GenServer:
