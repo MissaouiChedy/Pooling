@@ -14,7 +14,7 @@ defmodule Pooling.Server do
   end
 
   def handle_call {:calculate, count}, _from, state do
-    {:reply, Pooling.Core.calc(count), state}
+    {:reply, Pooling.Core.primes(count), state}
   end
 end
 
@@ -44,7 +44,7 @@ defmodule Pooling.Client do
       get_calculate_execution_time(worker, i, Pooling.range_size())
     end)
     
-    Enum.map(calc_tasks, fn t -> 
+    Enum.each(calc_tasks, fn t -> 
       {:ok, ident, duration} = Task.await(t, Pooling.one_minute_timeout)
       IO.puts "#{ident} ==> #{duration}s"
     end)
@@ -61,6 +61,6 @@ defmodule Pooling.Client do
     workers = Enum.map(1..run_count, fn _ -> :poolboy.checkout(:calc_pool) end)
     run_with_workers(workers)
     
-    Enum.map(workers, fn w -> :poolboy.checkin(:calc_pool, w) end)
+    Enum.each(workers, fn w -> :poolboy.checkin(:calc_pool, w) end)
   end
 end

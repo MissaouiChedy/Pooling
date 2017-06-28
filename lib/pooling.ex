@@ -1,6 +1,6 @@
 defmodule Pooling do
   
-  def range_size, do: 1200000
+  def range_size, do: 20000
   def one_minute_timeout, do: 60000 
   def core_count, do: 4
   
