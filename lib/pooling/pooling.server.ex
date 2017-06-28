@@ -25,22 +25,22 @@ defmodule Pooling.Client do
     GenServer.call(CalcServer, {:calculate, count}, Pooling.one_minute_timeout)
   end
   
-  def calculate worker, count do
-    GenServer.call(worker, {:calculate, count}, Pooling.one_minute_timeout)
+  def calculate worker_pid, count do
+    GenServer.call(worker_pid, {:calculate, count}, Pooling.one_minute_timeout)
   end
 
-  defp get_calculate_execution_time worker, ident, count do
+  defp get_calculate_execution_time worker_pid, ident, count do
     Task.async(fn ->
       {:ok, 
         ident, 
-        Pooling.Util.measure_execution_time(Pooling.Client, :calculate, [worker, count])}
+        Pooling.Util.measure_execution_time(Pooling.Client, :calculate, [worker_pid, count])}
     end)
   end
 
 
-  defp run_with_workers workers do
+  defp run_with_workers worker_pids do
     
-    calc_tasks = Enum.map(Enum.with_index(workers), fn {worker, i} ->
+    calc_tasks = Enum.map(Enum.with_index(worker_pids), fn {worker, i} ->
       get_calculate_execution_time(worker, i, Pooling.range_size())
     end)
     
