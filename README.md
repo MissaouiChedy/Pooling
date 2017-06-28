@@ -3,10 +3,10 @@
 A small sample application that demonstrates *worker process contention* and how to address it with *worker pooling*.
 
 This application measures the time it takes for the following operations:
- - 4 Tasks calling simultaneously the same genserver instance that performs an expensive computation(CPU bound)
- - 4 Tasks which calls are dispatched to 4 other genserver instances that performs an expensive computation(CPU bound)
+ - 4 Tasks calling simultaneously the same genserver instance that performs CPU bound computation: calculating primes on given range, which can be expensive when the range is large
+ - 4 Tasks which calls are dispatched to 4 pooled genserver instances that performs the same previous computation
 
-The expensive computation is defined under the `Pooling.Core.calc/1` function.
+The computation is defined under the `Pooling.Core.primes/1` function.
 
 
 # Running the sample
@@ -15,9 +15,10 @@ Given that you have a elixir development environment installed:
 
 - run `mix deps.get` to set up the project dependencies
 - run `iex -S mix` to open an elixir shell session loaded with the Pooling application
-- run `Pooling.main` in the iex session to run the sample
+- run `Pooling.run/1` in the iex session to run the sample(you can specify a range size, default is `20000`)
 
-Here is a possible output:
+Here is a sample output:
+
 ```
 iex(1)> Pooling.main
 4 processes on single GenServer:
