@@ -33,7 +33,7 @@ defmodule Pooling.Client do
     Task.async(fn ->
       {:ok, 
         ident, 
-        Pooling.Util.measure(Pooling.Client, :calculate, [worker, count])}
+        Pooling.Util.measure_execution_time(Pooling.Client, :calculate, [worker, count])}
     end)
   end
 
