@@ -3,7 +3,7 @@ defmodule Pooling do
   def one_minute_timeout, do: 60000 
   def core_count, do: 4
   
-  def main range_size \\ 20000 do
+  def run range_size \\ 20000 do
     IO.puts "#{core_count()} processes on single GenServer:"
     IO.puts "----------------------------------------------"
     run_on_single_genserver core_count(), range_size
