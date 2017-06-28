@@ -1,7 +1,7 @@
 defmodule Pooling do
   
   def one_minute_timeout, do: 60000 
-  def core_count, do: 4
+  def core_count, do: :erlang.system_info(:schedulers_online)
   
   def run range_size \\ 20000 do
     IO.puts "#{core_count()} processes on single GenServer:"
