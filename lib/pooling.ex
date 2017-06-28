@@ -7,19 +7,12 @@ defmodule Pooling do
   def main do
     IO.puts "#{core_count()} processes on single GenServer:"
     IO.puts "----------------------------------------------"
-    run_on_single_instance()
+    Pooling.Client.run_on_single_genserver core_count()
     IO.puts "=============================================="
     IO.puts "#{core_count()} processes on pooled GenServers:"
     IO.puts "----------------------------------------------"
-    run_on_pooled()
+    Pooling.Client.run_on_pool_of_genservers core_count()
     IO.puts "=============================================="
   end
-  def run_on_single_instance do
-    Pooling.Client.run_serial core_count()
-  end
-
-  def run_on_pooled do
-    Pooling.Client.run_pooled core_count()
-  end
-
+  
 end

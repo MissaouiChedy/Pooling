@@ -38,12 +38,13 @@ defmodule Pooling.Client do
     end)
   end
 
-
+  #
+  # Launches a calculation time measure for each given worker
   defp run_with_workers worker_pids do
-    
-    calc_tasks = Enum.map(Enum.with_index(worker_pids), fn {worker, i} ->
-      get_calculation_execution_time(worker, i, Pooling.range_size())
-    end)
+    calc_tasks = Enum.map(Enum.with_index(worker_pids), 
+      fn {worker, index} ->
+        get_calculation_execution_time(worker, index, Pooling.range_size())
+      end)
     
     Enum.each(calc_tasks, fn t -> 
       {:ok, ident, duration} = Task.await(t, Pooling.one_minute_timeout)
@@ -51,12 +52,12 @@ defmodule Pooling.Client do
     end)
   end
 
-  def run_serial run_count do  
+  def run_on_single_genserver run_count do  
     Enum.map(1..run_count, fn _ -> CalcServer end)
     |> run_with_workers
   end
 
-  def run_pooled run_count do
+  def run_on_pool_of_genservers run_count do
     workers = Enum.map(1..run_count, fn _ -> :poolboy.checkout(:calc_pool) end)
     run_with_workers(workers)
     
