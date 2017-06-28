@@ -1,3 +1,6 @@
+#
+#  Supervisor that supervises the execution of the pool
+#
 defmodule Pooling.PoolSupervisor do
   use Supervisor
 

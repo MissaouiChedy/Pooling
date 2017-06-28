@@ -1,6 +1,10 @@
 defmodule Pooling.Core do
+  @doc ~S"""
+    Given an integer n, returns all the prime numbers in the range [1..n[
+  """
   def primes n do
-    Enum.filter(1..(n-1), fn num -> is_prime?(num) end)
+    Enum.filter(1..(n-1), 
+      fn num -> is_prime?(num) end)
   end
 
   def is_prime? 1 do

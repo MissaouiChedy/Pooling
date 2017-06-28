@@ -1,22 +1,16 @@
 defmodule Pooling.Application do
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
-
   use Application
 
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
-
-    # Define workers and child supervisors to be supervised
+    #
+    # Launches the named Pooling.Server used as the contention point
+    # as well as the supervisor managing the pool
     children = [
-      # Starts a worker by calling: Pooling.Worker.start_link(arg1, arg2, arg3)
       worker(Pooling.Server, [:named]),
       supervisor(Pooling.PoolSupervisor, []),
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Pooling.Supervisor]
     Supervisor.start_link(children, opts)
   end
