@@ -1,13 +1,11 @@
 # Pooling
 
-A small sample application that demonstrates *worker process contention* and how to address it with *worker pooling*.
+A small sample application that demonstrates *worker process contention* and how to address it with *worker pooling* as discussed in the [genserver contention and what to do about it](http://localhost:4000/article/genserver-contention-and-what-to-do-about-it.html) article.
 
-This application measures the time it takes for the following operations:
- - 4 Tasks calling simultaneously the same genserver instance that performs CPU bound computation: calculating primes on given range, which can be expensive when the range is large
- - 4 Tasks which calls are dispatched to 4 pooled genserver instances that performs the same previous computation
 
-The computation is defined under the `Pooling.Core.primes/1` function.
-
+Given the number of cores in the machine `n`, this application measures the time it takes for the following operations:
+ - `n` Tasks calling simultaneously the same `Pooling.Server` GenServer instance that performs a CPU bound computation: calculating primes on a given range, which can be expensive when the range is large
+ - `n` Tasks which simultaneous calls are dispatched to `n` pooled `Pooling.Server` GenServer instances that performs the same previous computation
 
 # Running the sample
 
@@ -37,3 +35,5 @@ iex(1)> Pooling.main
 ==============================================
 
 ```
+
+Obviously, it will not be interesting to run the example on a single core machine.
