@@ -1,6 +1,6 @@
 # Pooling
 
-A small sample application that demonstrates *worker process contention* and how to address it with *worker pooling* as discussed in the [genserver contention and what to do about it](http://localhost:4000/article/genserver-contention-and-what-to-do-about-it.html) article.
+A small sample application that demonstrates *worker process contention* and how to address it with *worker pooling* as discussed in the [genserver contention and what to do about it](http://blog.techdominator.com/article/genserver-contention-and-what-to-do-about-it.html) article.
 
 
 Given the number of cores in the machine `n`, this application measures the time it takes for the following operations:
